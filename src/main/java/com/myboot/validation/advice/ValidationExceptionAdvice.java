@@ -1,4 +1,4 @@
-package com.myboot.validation.groups;
+package com.myboot.validation.advice;
 
 import com.myboot.vo.BaseResponse;
 import org.springframework.validation.FieldError;
