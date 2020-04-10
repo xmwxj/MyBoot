@@ -3,6 +3,7 @@ package com.myboot.vo;
 import com.myboot.validation.groups.Create;
 import com.myboot.validation.groups.Delete;
 import com.myboot.validation.groups.Update;
+import com.myboot.validation.regexp.ValidationRegexp;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -19,6 +20,7 @@ public class User {
     @Max(value = 50,groups = {Update.class})
     @Max(30)
     private int age;
+    @Pattern(regexp = ValidationRegexp.NUMNIC,message = "sex输入不合法")
     private String sex;
     @NotNull
     @Valid

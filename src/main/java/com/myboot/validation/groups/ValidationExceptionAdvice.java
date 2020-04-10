@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @RestControllerAdvice
 public class ValidationExceptionAdvice {
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
     public final BaseResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BaseResponse response = new BaseResponse();
         List<FieldError> errorList =  ex.getBindingResult().getFieldErrors();
