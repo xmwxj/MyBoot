@@ -3,6 +3,7 @@ package com.myboot.vo;
 import com.myboot.validation.groups.Create;
 import com.myboot.validation.groups.Delete;
 import com.myboot.validation.groups.Update;
+import com.myboot.validation.marriage.Marriage;
 import com.myboot.validation.regexp.ValidationRegexp;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import javax.validation.constraints.*;
  * @author Nansen
  * @create 2020/4/4 21:28
  */
+@Marriage
 public class User {
     @NotNull(groups={Update.class, Delete.class})
     private Integer id;
