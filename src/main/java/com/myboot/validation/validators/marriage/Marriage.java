@@ -1,4 +1,4 @@
-package com.myboot.validation.jobValidator;
+package com.myboot.validation.validators.marriage;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,10 +10,10 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
-@Constraint(validatedBy = JobValidator.class)
-public @interface Job {
-    String message() default "Job有问题";
+@Target({ElementType.TYPE})
+@Constraint(validatedBy = MarriageValidator.class)
+public @interface Marriage {
+    String message() default "不符合国家法定结婚年龄";
 
     Class<?>[] groups() default {};
 

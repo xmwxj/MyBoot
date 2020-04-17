@@ -1,6 +1,4 @@
-package com.myboot.validation.jobValidator;
-
-import com.myboot.vo.User;
+package com.myboot.validation.validators.jobValidator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

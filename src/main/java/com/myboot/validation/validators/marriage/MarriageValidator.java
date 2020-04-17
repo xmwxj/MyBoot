@@ -1,4 +1,4 @@
-package com.myboot.validation.marriage;
+package com.myboot.validation.validators.marriage;
 
 import com.myboot.vo.User;
 

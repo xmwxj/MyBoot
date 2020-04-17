@@ -1,7 +1,7 @@
 package com.myboot.vo;
 
 import com.myboot.validation.groups.*;
-import com.myboot.validation.marriage.Marriage;
+import com.myboot.validation.validators.marriage.Marriage2;
 import com.myboot.validation.regexp.ValidationRegexp;
 
 import javax.validation.Valid;
@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
  * @author Nansen
  * @create 2020/4/4 21:28
  */
-@Marriage
+@Marriage2(sex = "sex", age = "age")
 public class User {
     @NotNull(groups={Update.class, Delete.class})
     private Integer id;
@@ -22,11 +22,11 @@ public class User {
     private int age;
     @Pattern(regexp = ValidationRegexp.NUMNIC,message = "sex输入不合法")
     private String sex;
-    @com.myboot.validation.jobValidator.Job(groups = {Step1.class})
+    @com.myboot.validation.validators.jobValidator.Job(groups = {Step1.class})
     @Valid
     private Job job1;
 
-    @com.myboot.validation.jobValidator.Job
+    @com.myboot.validation.validators.jobValidator.Job
     @Valid
     private Job job2;
 
