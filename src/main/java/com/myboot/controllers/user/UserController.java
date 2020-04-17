@@ -1,6 +1,7 @@
 package com.myboot.controllers.user;
 
 import com.myboot.validation.groups.Delete;
+import com.myboot.validation.groups.SeqValidator;
 import com.myboot.validation.groups.Update;
 import com.myboot.vo.User;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +54,7 @@ public class UserController {
      * 这里会去验证所有Update分组和dafault分组，不会验证delete分组
      */
     @PostMapping("updateUser")
-    public int updateUser(@RequestBody @Validated(value = {Update.class}) User user){
+    public int updateUser(@RequestBody @Validated(value = {SeqValidator.class}) User user){
         return 1;
     }
 

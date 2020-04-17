@@ -1,8 +1,6 @@
 package com.myboot.vo;
 
-import com.myboot.validation.groups.Create;
-import com.myboot.validation.groups.Delete;
-import com.myboot.validation.groups.Update;
+import com.myboot.validation.groups.*;
 import com.myboot.validation.marriage.Marriage;
 import com.myboot.validation.regexp.ValidationRegexp;
 
@@ -24,9 +22,13 @@ public class User {
     private int age;
     @Pattern(regexp = ValidationRegexp.NUMNIC,message = "sex输入不合法")
     private String sex;
-    @NotNull
+    @com.myboot.validation.jobValidator.Job(groups = {Step1.class})
     @Valid
-    private Job job;
+    private Job job1;
+
+    @com.myboot.validation.jobValidator.Job
+    @Valid
+    private Job job2;
 
     public Integer getId() {
         return id;
@@ -60,11 +62,19 @@ public class User {
         this.sex = sex;
     }
 
-    public Job getJob() {
-        return job;
+    public Job getJob1() {
+        return job1;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setJob1(Job job1) {
+        this.job1 = job1;
+    }
+
+    public Job getJob2() {
+        return job2;
+    }
+
+    public void setJob2(Job job2) {
+        this.job2 = job2;
     }
 }
