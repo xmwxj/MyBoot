@@ -15,6 +15,7 @@ public class JobValidator implements ConstraintValidator<Job, com.myboot.vo.Job>
 
     @Override
     public boolean isValid(com.myboot.vo.Job job, ConstraintValidatorContext constraintValidatorContext) {
+        if(null == job) return true;
         Integer id = job.getId();
         if(id == 11){
             return true;

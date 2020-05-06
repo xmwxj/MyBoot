@@ -6,5 +6,5 @@ package com.myboot.validation.regexp;
  */
 public interface ValidationRegexp {
     //匹配数字或者空字符串
-    public static final String NUMNIC = "^\\s*|[1-9]\\d*|0";
+    public static final String NUMERIC = "^\\s*|[1-9]\\d*$|0";
 }

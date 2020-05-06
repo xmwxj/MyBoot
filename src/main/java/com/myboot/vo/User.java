@@ -17,10 +17,10 @@ public class User {
     private Integer id;
     @NotBlank(groups={Update.class,Create.class})
     private String name;
-    @Max(value = 50,groups = {Update.class})
-    @Max(30)
+    @Min(value=10,groups = {Create.class})
+    @Max(value = 8,groups = {Update.class})
     private int age;
-    @Pattern(regexp = ValidationRegexp.NUMNIC,message = "sex输入不合法")
+    @Pattern(regexp = ValidationRegexp.NUMERIC,message = "sex输入不合法")
     private String sex;
     @com.myboot.validation.validators.jobValidator.Job(groups = {Step1.class})
     @Valid

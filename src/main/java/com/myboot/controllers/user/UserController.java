@@ -43,7 +43,7 @@ public class UserController {
      * 这里会去验证所有default的分组
      */
     @PostMapping("createUser")
-    public User createUser(@RequestBody @Validated(value = {Default.class}) User user){
+    public User createUser(@RequestBody @Validated(value = {Update.class}) User user){
         user.setId(1);
         return user;
     }
