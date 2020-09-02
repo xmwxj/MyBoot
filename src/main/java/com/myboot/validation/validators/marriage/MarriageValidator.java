@@ -18,11 +18,11 @@ public class MarriageValidator implements ConstraintValidator<Marriage, User> {
     @Override
     public boolean isValid(User user, ConstraintValidatorContext constraintValidatorContext) {
         //Male or Female
-        String sex = user.getSex();
+        Integer sex = user.getGender().getValue();
         int age = user.getAge();
-        if("Male".equals(sex)){
+        if(0 == sex){
             return age>24;
-        }else if("Female".equals(sex)){
+        }else if(1 == sex){
             return age >22;
         }
         return false;
