@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.groups.Default;
 import java.io.IOException;
 import java.text.ParseException;
@@ -55,6 +57,7 @@ public class UserController {
     @GetMapping("getUser2")
     public User getUser2(HttpServletRequest request){
 //        System.out.println(request.getLocalAddr());
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         System.out.println("request.getHeader(\"User-Agent\") = " + request.getHeader("User-Agent"));
         Browser browser = UserAgent.parseUserAgentString(request.getHeader("User-Agent")).getBrowser();
         System.out.println("browser.getName() = " + browser.getName());

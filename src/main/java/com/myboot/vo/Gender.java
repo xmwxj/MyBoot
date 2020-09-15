@@ -1,24 +1,27 @@
 package com.myboot.vo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * @author Nansen
  * @create 2020/9/2 16:08
  */
-public enum Gender implements BaseEnum {
-    MALE(0),FEMAIL(1);
+public enum Gender {
+    MALE(1), FEMALE(2);
     private int value;
 
     Gender(int value){
         this.value=value;
     }
 
-    @Override
+    @JsonValue
     public int getValue() {
-        return 0;
+        return value;
     }
 
-    @Override
-    public BaseEnum valueOf() {
+    @JsonCreator
+    public static Gender valueOf(int value) {
         for(Gender gender:Gender.values()){
             if(gender.getValue() == value){
                 return gender;
