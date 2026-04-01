@@ -78,12 +78,12 @@ else
 fi
 
 # 创建必要的目录
-for dir in logs svn backup; do
-    if [ ! -d "$dir" ]; then
-        mkdir -p "$dir"
-        echo -e "${GREEN}✓ 创建目录：$dir${NC}"
-    fi
-done
+#for dir in logs svn backup; do
+#    if [ ! -d "$dir" ]; then
+#        mkdir -p "$dir"
+#        echo -e "${GREEN}✓ 创建目录：$dir${NC}"
+#    fi
+#done
 
 # 验证安装
 echo -e "${CYAN}→ 验证安装...${NC}"
@@ -99,12 +99,11 @@ echo -e "${GREEN}  部署完成！${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 echo -e "${CYAN}运行命令：${NC}"
-echo -e "  ${GRAY}# 生产环境${NC}"
 echo -e "  source venv/bin/activate"
 echo -e "  ENVIRONMENT=production python main.py <module_name>"
 echo ""
 echo -e "  ${GRAY}# 或一键运行：${NC}"
-echo -e "  ./run.sh production <module_name>"
+echo -e "  ./run.sh <module_name>"
 echo ""
 echo -e "${CYAN}示例：${NC}"
-echo -e "  ./run.sh production paynet_pcs"
+echo -e "  ./run.sh paynet_pcs"
