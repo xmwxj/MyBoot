@@ -49,6 +49,7 @@ def main(module:str):
     for key,svn_path in module_map.items():
         logger.info(f"构建模块{key}：{svn_path}")
         local_src_path = get_module_path(svn_path)
+        logger.info(f"模块{key}的本地路径：{local_src_path}")
         if Path(local_src_path).exists():
             logger.info(f"更新模块{key}：{local_src_path}")
             svn_client.update(local_src_path)
