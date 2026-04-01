@@ -23,17 +23,17 @@ else
 fi
 
 # 确定环境
-#ENVIRONMENT="${1:-production}"
-#if [ "$ENVIRONMENT" == "production" ]; then
-#    ENV_FILE=".env.prod"
-#    echo -e "${YELLOW}→ 部署到【生产环境】${NC}"
-#elif [ "$ENVIRONMENT" == "development" ]; then
-#    ENV_FILE=".env.dev"
-#    echo -e "${CYAN}→ 部署到【开发环境】${NC}"
-#else
-#    ENV_FILE=".env.$ENVIRONMENT"
-#    echo -e "${CYAN}→ 部署到【$ENVIRONMENT 环境】${NC}"
-#fi
+ENVIRONMENT="${1:-production}"
+if [ "$ENVIRONMENT" == "production" ]; then
+    ENV_FILE=".env.prod"
+    echo -e "${YELLOW}→ 部署到【生产环境】${NC}"
+elif [ "$ENVIRONMENT" == "development" ]; then
+    ENV_FILE=".env.dev"
+    echo -e "${CYAN}→ 部署到【开发环境】${NC}"
+else
+    ENV_FILE=".env.$ENVIRONMENT"
+    echo -e "${CYAN}→ 部署到【$ENVIRONMENT 环境】${NC}"
+fi
 
 # 检查虚拟环境
 if [ ! -d "venv" ]; then
