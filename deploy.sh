@@ -36,9 +36,9 @@ else
 fi
 
 # 检查虚拟环境
-if [ ! -d "venv" ]; then
+if [ ! -d ".venv" ]; then
     echo -e "${CYAN}→ 创建虚拟环境...${NC}"
-    python3 -m venv venv
+    python3 -m venv .venv
     echo -e "${GREEN}✓ 虚拟环境创建成功${NC}"
 else
     echo -e "${GREEN}✓ 虚拟环境已存在${NC}"
@@ -46,7 +46,7 @@ fi
 
 # 激活虚拟环境
 echo -e "${CYAN}→ 激活虚拟环境...${NC}"
-source venv/bin/activate
+source .venv/bin/activate
 
 # 升级 pip
 # echo -e "${CYAN}→ 升级 pip...${NC}"
