@@ -1,8 +1,10 @@
 from decorator.timer import timer
 from loguru import logger
 from utils.svn import SvnUtils
+from utils.maven import run_maven_clean_install
 from dotenv import load_dotenv
 from utils.icexs import switch_icexs_version
+from pathlib import Path
 import sys,os,json
 
 @timer
@@ -36,7 +38,33 @@ def main(module:str):
         logger.info(f"模块 '{module}' 的启动信息：\n{json.dumps(module_info,indent=2)}")
     # 切换icexs版本
     icexs_version = module_info.get('expected_icexs_ver')
-    switch_icexs_version(icexs_version)
+    success = switch_icexs_version(icexs_version)
+    if not success:
+        return 1
+    # todo:版本不存在的情况，要去svn下载
+
+    #构建项目
+    module_map = {key:value for key, value in module_info.items() if key.startswith('dependency_svn_path') or key=='svn_path_full'}
+    logger.info(f"模块列表：{module_map}")
+    for key,svn_path in module_map.items():
+        logger.info(f"构建模块{key}：{svn_path}")
+        local_src_path = get_module_path(svn_path)
+        if Path(local_src_path).exists():
+            logger.info(f"更新模块{key}：{local_src_path}")
+            svn_client.update(local_src_path)
+        else:
+            logger.info(f"检出模块{key}：{svn_path}")
+            svn_client.checkout(svn_path, local_src_path)
+        success = run_maven_clean_install(local_src_path)
+
+    # 启动项目
+
+    return 0
+def get_module_path(svn_path):
+    src_dir = os.getenv('UPF_SRC_DIR', '')
+    # svn_path='http://svnhost/repos/upf_src/poc/paynet'
+    # result = /app/volume/source/poc/paynet
+    return os.path.join(src_dir, svn_path[28:])
 
 if __name__ == '__main__':
     #加载环境变量
