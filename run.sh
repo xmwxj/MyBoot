@@ -41,7 +41,7 @@ fi
 
 # 激活虚拟环境
 echo -e "${CYAN}→ 激活虚拟环境...${NC}"
-source venv/bin/activate
+source .venv/bin/activate
 
 # 设置默认环境为生产环境
 export ENVIRONMENT=production
@@ -62,9 +62,9 @@ echo -e "${GREEN}✓ 使用配置文件：$ENV_FILE${NC}"
 
 # 显示启动信息
 echo -e "${CYAN}========================================${NC}"
-echo -e "${CYAN}  启动 MyBoot${NC}"
+echo -e "${CYAN}  启动 UPF${NC}"
 echo -e "${CYAN}========================================${NC}"
-echo -e "${GREEN}模块：${YELLOW}$MODULE${NC}"
+echo -e "${GREEN}  模块：${YELLOW}$MODULE${NC}"
 echo -e "${CYAN}========================================${NC}"
 echo ""
 

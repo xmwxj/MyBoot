@@ -18,8 +18,8 @@ def main(module:str):
     # 导出upfenv.json
     success = svn_client.export(upf_env_json_url, upf_env_local_path)
     if not success:
-        logger.error("upfenv.导出失败，无法继续处理")
-        return
+        logger.error("upfenv.json文件导出失败，无法继续处理")
+        return 1
 
     #读取upfenv.json
     with open(upf_env_local_path, 'r') as f:
@@ -30,7 +30,7 @@ def main(module:str):
     module_list = upf_env.get('list_of_envs', '').split()
     if module not in module_list:
         logger.error(f"模块 '{module}' 不在已知模块列表中")
-        return
+        return 1
     else:
         module_info = upf_env.get('project').get(module)
         logger.info(f"模块 '{module}' 的启动信息：\n{json.dumps(module_info,indent=2)}")
@@ -40,5 +40,5 @@ def main(module:str):
 
 if __name__ == '__main__':
     #加载环境变量
-    load_dotenv('.env')
+    load_dotenv('.env.prod')
     main(sys.argv[1])
