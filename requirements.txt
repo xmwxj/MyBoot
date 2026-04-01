@@ -1,0 +1,7 @@
+# MyBoot 项目依赖包
+
+# 日志库
+loguru>=0.7.0
+
+# 环境变量管理
+python-dotenv>=1.0.0
