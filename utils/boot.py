@@ -1,7 +1,7 @@
 import subprocess
 from loguru import logger
 
-def boot(module_dir: str, fixture_file: str, timeout: int = 3600) -> bool:
+def boot(module_dir: str, fixture_file: str) -> bool:
     """
     启动测试环境并执行初始化测试
 
@@ -54,7 +54,7 @@ quit
         print()  # 空行分隔
 
         # 等待进程完成
-        process.wait(timeout=timeout)
+        process.wait()
 
         # 检查结果
         if process.returncode == 0:
@@ -64,9 +64,6 @@ quit
             logger.error(f"✗ 测试环境启动失败，退出码：{process.returncode}")
             return False
 
-    except subprocess.TimeoutExpired:
-        logger.error(f"命令执行超时（{timeout}秒）")
-        return False
     except FileNotFoundError:
         logger.error("未找到 bt-sting 命令，请确保已安装并配置到 PATH")
         return False

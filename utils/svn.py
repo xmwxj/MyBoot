@@ -83,7 +83,7 @@ class SvnUtils:
             if force:
                 cmd.append('--force')
 
-            success, output = self._run_svn_command(cmd, f"导出 {svn_url}")
+            success, output = self._run_svn_command(cmd, f"导出 {svn_url} 到目录 {local_path}")
             return success
 
         except Exception as e:

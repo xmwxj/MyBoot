@@ -42,7 +42,8 @@ def timer(func: Callable = None, *, prefix: str = '', use_ms: bool = False):
             if use_ms:
                 logger.info(f"执行时间： {elapsed * 1000:.2f}ms")
             else:
-                logger.info(f"执行时间: {elapsed:.4f}s")
+                minutes,seconds = divmod(elapsed, 60)
+                logger.info(f"执行时间: {minutes}分{seconds}秒")
 
             return result
 
