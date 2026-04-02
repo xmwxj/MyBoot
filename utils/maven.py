@@ -25,26 +25,28 @@ def run_maven_clean_install(project_dir: str, maven_args: list = None) -> bool:
         logger.info(f"项目目录：{project_dir}")
 
         # 执行命令
-        result = subprocess.run(
+        process = subprocess.Popen(
             cmd,
             cwd=project_dir,  # 指定工作目录
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # 将 stderr 合并到 stdout
             text=True,
-            check=False,  # 不自动抛出异常
+            bufsize=20,
             encoding='utf-8'
         )
 
-        # 输出日志
-        if result.stdout:
-            logger.debug(f"Maven 输出:\n{result.stdout}")
+        # 实时读取并输出
+        for line in process.stdout:
+            print(line, end='')  # 实时打印每一行
 
-        if result.returncode == 0:
+        # 等待进程结束
+        return_code = process.wait()
+
+        if return_code == 0:
             logger.success("Maven clean install 执行成功")
             return True
         else:
-            logger.error(f"Maven 执行失败，退出码：{result.returncode}")
-            if result.stderr:
-                logger.error(f"错误信息:\n{result.stderr}")
+            logger.error(f"Maven 执行失败，退出码：{return_code}")
             return False
 
     except FileNotFoundError:

@@ -2,8 +2,9 @@ from decorator.timer import timer
 from loguru import logger
 from utils.svn import SvnUtils
 from utils.maven import run_maven_clean_install
-from dotenv import load_dotenv
 from utils.icexs import switch_icexs_version
+from utils.boot import boot
+from dotenv import load_dotenv
 from pathlib import Path
 import sys,os,json
 
@@ -46,6 +47,7 @@ def main(module:str):
     #构建项目
     module_map = {key:value for key, value in module_info.items() if key.startswith('dependency_svn_path') or key=='svn_path_full'}
     logger.info(f"模块列表：{module_map}")
+    local_src_path= ''
     for key,svn_path in module_map.items():
         logger.info(f"构建模块{key}：{svn_path}")
         local_src_path = get_module_path(svn_path)
@@ -59,13 +61,17 @@ def main(module:str):
         success = run_maven_clean_install(local_src_path)
 
     # 启动项目
-
+    if ('fixture_file0' in module_info):
+        fixture_file = module_info.get('fixture_file0')
+    else:
+        fixture_file = module_info.get('fixture_file')
+    boot(local_src_path,fixture_file)
     return 0
 def get_module_path(svn_path):
     src_dir = os.getenv('UPF_SRC_DIR', '')
     # svn_path='http://svnhost/repos/upf_src/poc/paynet'
     # result = /app/volume/source/poc/paynet
-    return os.path.join(src_dir, svn_path[28:])
+    return src_dir+svn_path[28:]
 
 if __name__ == '__main__':
     #加载环境变量

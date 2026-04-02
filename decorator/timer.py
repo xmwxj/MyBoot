@@ -1,7 +1,8 @@
 import time
 from functools import wraps
-from typing import Callable, Any, Optional
+from typing import Callable, Any
 from datetime import datetime
+from loguru import logger
 
 def timer(func: Callable = None, *, prefix: str = '', use_ms: bool = False):
     """
@@ -35,13 +36,13 @@ def timer(func: Callable = None, *, prefix: str = '', use_ms: bool = False):
             start_str = start_time.strftime('%H:%M:%S.') + f'{start_time.microsecond // 1000:03d}'
             end_str = end_time.strftime('%H:%M:%S.') + f'{end_time.microsecond // 1000:03d}'
 
-            print(f"[{start_str}] Start: {fun.__name__}")
-            print(f"[{end_str}] End: {fun.__name__}")
+            logger.info(f"开始时间:{start_str}")
+            logger.info(f"结束时间:{end_str}")
 
             if use_ms:
-                print(f"{prefix}{fun.__name__} executed in {elapsed * 1000:.2f}ms")
+                logger.info(f"执行时间： {elapsed * 1000:.2f}ms")
             else:
-                print(f"{prefix}{fun.__name__} executed in {elapsed:.4f}s")
+                logger.info(f"执行时间: {elapsed:.4f}s")
 
             return result
 

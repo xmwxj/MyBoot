@@ -1,5 +1,4 @@
 import subprocess
-import os
 from loguru import logger
 
 def boot(module_dir: str, fixture_file: str, timeout: int = 3600) -> bool:
@@ -31,39 +30,31 @@ status -m
 quit
 """
 
-        # 环境变量设置
-        env = os.environ.copy()
-        env['upp1'] = 'true'
-        env['TDE_DISABLED'] = 'true'
-        env['NO_PARTITION'] = 'true'
-
         # 切换到模块目录并执行命令
-        logger.info("正在执行 bt-sting 初始化...")
+        logger.info("开始启动...")
 
         process = subprocess.Popen(
             ['bt-sting', '-e', 'upp1', '-DTDE_DISABLED=true', '-DNO_PARTITION=true'],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # 合并 stderr 到 stdout
             text=True,
             cwd=module_dir,
-            env=env
+            bufsize=10  # 行缓冲
         )
 
-        # 发送脚本并等待完成
-        stdout, stderr = process.communicate(input=bt_script, timeout=timeout)
+        # 发送脚本内容到 stdin
+        process.stdin.write(bt_script)
+        process.stdin.flush()
+        process.stdin.close()  # 关闭 stdin，让进程知道输入已完成
+        print()  # 空行分隔
+        for line in iter(process.stdout.readline, ''):
+            if line:
+                print(line, end='')  # 实时打印每一行
+        print()  # 空行分隔
 
-        # 输出日志
-        if stdout:
-            for line in stdout.splitlines():
-                if 'SUCCESS' in line or 'PASSED' in line:
-                    logger.success(line.strip())
-                elif 'ERROR' in line or 'FAILED' in line:
-                    logger.error(line.strip())
-                elif 'WARNING' in line:
-                    logger.warning(line.strip())
-                else:
-                    logger.debug(line.strip())
+        # 等待进程完成
+        process.wait(timeout=timeout)
 
         # 检查结果
         if process.returncode == 0:
@@ -71,8 +62,6 @@ quit
             return True
         else:
             logger.error(f"✗ 测试环境启动失败，退出码：{process.returncode}")
-            if stderr:
-                logger.error(f"错误信息：\n{stderr}")
             return False
 
     except subprocess.TimeoutExpired:
