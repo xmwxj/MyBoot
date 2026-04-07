@@ -46,7 +46,7 @@ def main(module:str):
 
     #构建项目
     module_map = {key:value for key, value in module_info.items() if key.startswith('dependency_svn_path') or key=='svn_path_full'}
-    logger.info(f"模块列表：{module_map}")
+    logger.info(f"模块列表：\n{json.dumps(module_map,indent=2)}")
     local_src_path= ''
     for key,svn_path in module_map.items():
         logger.info(f"构建模块{key}：{svn_path}")
