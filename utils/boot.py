@@ -58,7 +58,7 @@ quit
 
         # 检查结果
         if process.returncode == 0:
-            logger.success("✓ 测试环境启动成功")
+            logger.success("✓ 启动命令执行结束")
             return True
         else:
             logger.error(f"✗ 测试环境启动失败，退出码：{process.returncode}")
